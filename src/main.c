@@ -43,11 +43,38 @@ int main() {
     printf("* size_t int_vector_get_capacity(const IntVector *v)\n");
     printf("vector->capacity = %d\n", get_capacity(vector));
 
-    printf("* int int_vector_push_back(IntVector *v, int item)\n");
+    /*printf("* int int_vector_push_back(IntVector *v, int item)\n");
     push_back(vector, 9);
     for (int i = 0; i < 7; ++i)
         printf("%d\t", vector->p[i]);
+    printf("\n");*/
+
+    printf("* int int_vector_pop_back(IntVector *v)\n");
+    pop_back(vector);
+    for (int i = 0; i < 6; ++i)
+        printf("%d\t", vector->p[i]);
     printf("\n");
+
+    /*printf("* int int_vector_shrink_to_fit(IntVector *v)\n");
+    shrink_to_fit(vector);
+    for (int i = 0; i < 6; ++i)
+        printf("%d\t", vector->p[i]);
+    printf("\n");*/
+
+    printf("* int int_vector_resize(IntVector *v, int size)\n");
+    int nsize = 8;
+    vector_resize(vector, nsize);
+    for (int i = 0; i < 8; ++i)
+        printf("%d\t", vector->p[i]);
+    printf("\n");
+
+    /*printf("* int int_vector_reserve(IntVector *v, int capacity)\n");
+    int ncapacity = 10;
+    vector_reserve(vector, ncapacity);
+    for (int i = 0; i < 10; ++i)
+        printf("%d\t", vector->p[i]);
+    printf("\n");*/
+
 
     /*for(int i = 0;i < 6;++i)
         vector->p[i] = i*i;

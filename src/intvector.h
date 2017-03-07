@@ -30,4 +30,8 @@ int get_size(const Intvector *v);
 
 int get_capacity(const Intvector *v);
 
+int shrink_to_fit(Intvector *v);
+
+int vector_resize(Intvector *v, int size);
+
 #endif
