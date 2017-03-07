@@ -7,9 +7,9 @@
 #define STEP 2
 
 typedef struct Intvector {
-  int *p;
-  int size;
-  int capacity;
+    int *p;
+    int size;
+    int capacity;
 } Intvector;
 
 Intvector *vector_new(int cap);
