@@ -50,8 +50,9 @@ int push_back(Intvector *v, int item)
 
 void pop_back(Intvector *v) 
 {
-    v->p[v->capacity-1] = 0;
-    v->capacity -= 1;
+    if(v->p[v->capacity-1] != 0)
+        v->p[v->capacity-1] = 0;
+
 }
 
 void clean_up(Intvector *v) 
@@ -69,26 +70,44 @@ int get_capacity(const Intvector *v)
     return v->capacity;
 }
 
-/*int shrink_to_fit(Intvector *v)
+int shrink_to_fit(Intvector *v)
 {
     if (v->size < v->capacity) {
-        int diff = v->capacity - v->size;
-        v->p = realloc(v->p, (v->capacity - diff) * sizeof(int));
+        
+        v->p = realloc(v->p, v->size * sizeof(int));
+        v->capacity = v->size;
         return 0;
     }
     else {
         return -1;
     }
-}*/
+}
 
 int vector_resize(Intvector *v, int nsize)
 {
-    if (nsize > v->size) {
-        float k = v->size / nsize;
-        v->p = realloc(v->p, sizeof(int) * k * v->capacity);
+    if (nsize > v->size || nsize < v->size) {
+        if(nsize > v->size) {
+            v->p = realloc(v->p, sizeof(int) * nsize);
+            for(int i = v->size; i < nsize + 1 ; i++)
+                v->p[v->size] = 0;
+            return 0;
+        }
+        else {
+            shrink_to_fit(v);
+            return 0;
+        }
+    }
+    else {
+        return -1;
+    }
+}
+
+int vector_reserve(Intvector *v, int newcap) {
+    if(newcap > v->capacity) {
+        v->p = realloc(v->p, sizeof(int)* newcap);
         return 0;
     }
-    else{
+    else {
         return -1;
     }
 }

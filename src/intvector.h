@@ -34,4 +34,6 @@ int shrink_to_fit(Intvector *v);
 
 int vector_resize(Intvector *v, int size);
 
+int vector_reserve(Intvector *v, int newcap);
+
 #endif
