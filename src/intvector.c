@@ -23,10 +23,10 @@ void fillVector(Intvector * v, int size)
 
 int correctIndex(Intvector * v,int index)
 {
-    return (index > 0 && index < v->capacity) ? 1 : 0;
+    return (index >= 0 && index < v->capacity) ? 1 : 0;
 }
 
-Intvector *vector_new(size_t incap) 
+Intvector *vector_new(size_t incap)
 {
     Intvector *vec = NULL;
     if (!(vec = malloc(sizeof(Intvector)))) {
@@ -35,7 +35,7 @@ Intvector *vector_new(size_t incap)
     if (!(vec->p = malloc(sizeof(int) * incap))) {
         free(vec);
         return NULL;
-    }    
+    }
     memset(vec->p, 0, incap*sizeof(int));
     vec->size = 0;
     vec->capacity = incap;
@@ -61,12 +61,12 @@ void clean_up(Intvector *v)
 }
 
 int get_item(const Intvector *vect, int index) 
-{ 
-    return vect->p[index]; 
+{
+    return vect->p[index];
 }
 
 void set_item(Intvector *vect, int index, int item) 
-{ 
+{
     vect->p[index] = item; 
 }
 
