@@ -81,37 +81,31 @@ size_t get_capacity(const Intvector *v)
 }
 
 
-
-
-
-/*int push_back(Intvector *v, int item) 
+int push_back(Intvector *v, int item) 
 {
     if (v->size == v->capacity) {
-        v->p = realloc(v->p, sizeof(int) * (v->capacity) * STEP);
-        v->p[v->capacity] = item;
-        v->capacity *= STEP;
-        if (v->size < v->capacity) {
-            v->p[(v->capacity) - 1] = item;
-            return 0;
-        }
+        vector_reserve(v, v->capacity*STEP);
+        v->p[v->size] = item;
+        v->size++;
         return 0;
     }
     else {
-        return -1;
+        v->p[v->size] = item;
+        return 0;
     }
+    return -1;
+
 }
 
 void pop_back(Intvector *v) 
 {
-    if(v->p[v->capacity-1] != 0)
-        v->p[v->capacity-1] = 0;
-
+    if(v->p[v->size] != 0)
+        v->p[v->size] = 0;
 }
 
 int shrink_to_fit(Intvector *v)
 {
     if (v->size < v->capacity) {
-        
         v->p = realloc(v->p, v->size * sizeof(int));
         v->capacity = v->size;
         return 0;
@@ -121,13 +115,13 @@ int shrink_to_fit(Intvector *v)
     }
 }
 
-int vector_resize(Intvector *v, int nsize)
+int vector_resize(Intvector *v, size_t nsize)
 {
-    if (nsize > v->size || nsize < v->size) {
+    if (nsize != v->size) {
         if(nsize > v->size) {
             v->p = realloc(v->p, sizeof(int) * nsize);
-            for(int i = v->size; i < nsize + 1 ; i++)
-                v->p[v->size] = 0;
+            memset(v->p + v->capacity, 0, (nsize - v->capacity)*sizeof(int));
+            v->size = v->capacity = nsize;
             return 0;
         }
         else {
@@ -140,12 +134,12 @@ int vector_resize(Intvector *v, int nsize)
     }
 }
 
-int vector_reserve(Intvector *v, int newcap) {
+int vector_reserve(Intvector *v, size_t newcap) {
     if(newcap > v->capacity) {
-        v->p = realloc(v->p, sizeof(int)* newcap);
-        return 0;
+        if(!(v->p = realloc(v->p, sizeof(int)* newcap)))
+            return -1;
+        memset(v->p + v->capacity, 0, (newcap - v->capacity)*sizeof(int));
+        v->capacity = newcap;
     }
-    else {
-        return -1;
-    }
-}*/
+    return 0;
+}

@@ -72,43 +72,39 @@ int main() {
     puts("* size_t int_vector_get_capacity(const IntVector *v)");
     printf("vector->capacity = %d\n", get_capacity(vector));
 
-    /*printf("* int int_vector_push_back(IntVector *v, int item)\n");
-    push_back(vector, 9);
-    for (int i = 0; i < 12; ++i)
-        printf("%d\t", vector->p[i]);
-    printf("\n");
-
-    printf("* int int_vector_pop_back(IntVector *v)\n");
+    puts("* int int_vector_push_back(IntVector *v, int item)");
+    puts("* int int_vector_reserve(IntVector *v, size_t new_capacity)");
+    puts("Enter the item :");
+    scanf("%d", &item);
+    push_back(vector, item);
+    printVector(vector->p, vector->capacity);
+    
+    
+    puts("* int int_vector_pop_back(IntVector *v)");
     pop_back(vector);
-    for (int i = 0; i < 12; ++i)
-        printf("%d\t", vector->p[i]);
-    printf("\n");
+    printVector(vector->p, vector->capacity);
     
 
-    printf("* int int_vector_shrink_to_fit(IntVector *v)\n");
+    puts("* int int_vector_shrink_to_fit(IntVector *v)");
     shrink_to_fit(vector);
-    for (int i = 0; i < 6; ++i)
-        printf("%d\t", vector->p[i]);
-    printf("\n");
+    printVector(vector->p, vector->capacity);
 
-    printf("* int int_vector_resize(IntVector *v, int size)\n");
-    int nsize = 9;
+    puts("* int int_vector_resize(IntVector *v, int size)");
+    int nsize;
+    puts("Enter a new size :");
+    scanf("%d", &nsize);
     vector_resize(vector, nsize);
-    for (int i = 0; i < nsize; ++i)
-        printf("%d\t", vector->p[i]);
-    printf("\n");
-   
-    printf("%d\n", vector->capacity);
     
-    printf("* int int_vector_reserve(IntVector *v, int capacity)\n");
-    int newcap = 10;
+    printVector(vector->p, vector->capacity);
+    
+    /*puts("* int int_vector_reserve(IntVector *v, size_t new_capacity)");
+    int newcap;
+    puts("Enter a new capacity :");
+    scanf("%d", &newcap);
     vector_reserve(vector, newcap);
-    for (int i = 0; i < 10; ++i)
-        printf("%d\t", vector->p[i]);
-    printf("\n");
+    printVector(vector->p, vector->capacity);*/
 
-
-    clean_up(vector);*/
+    clean_up(vector);
 
     return 0;
 }

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#define NOT_ALLOCATED 3
+
 #define STEP 2
 
 typedef struct Intvector {
@@ -29,21 +29,21 @@ void clean_up(Intvector *v);
 
 int get_item(const Intvector *vect, int index);
 
-
 void set_item(Intvector *vect, int index, int item);
 
 size_t get_size(const Intvector *v);
 
 size_t get_capacity(const Intvector *v);
 
-/*int push_back(Intvector *v, int item);
+int push_back(Intvector *v, int item);
+
+int vector_reserve(Intvector *v, size_t newcap);
 
 void pop_back(Intvector *v);
 
 int shrink_to_fit(Intvector *v);
 
-int vector_resize(Intvector *v, int size);
+int vector_resize(Intvector *v, size_t size);
 
-int vector_reserve(Intvector *v, int newcap);*/
 
 #endif
