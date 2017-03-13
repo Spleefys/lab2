@@ -1,24 +1,63 @@
 #include "intvector.h"
 
-Intvector *vector_new(int cap) 
+
+void printVector(int *arr, int size)
+{
+    printf("Array: ");
+    for (int i = 0; i < size; ++i) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+void vectorInfo(const Intvector * v)
+{
+    printf("Size : %d \nCapacity : %d \n",v->size, v->capacity);
+}
+
+void fillVector(Intvector * v, int size)
+{
+    for (int i = 0; i < size; ++i, ++v->size)
+        v->p[i] = i * i;
+}
+
+int correctIndex(Intvector * v,int index)
+{
+    return (index > 0 && index < v->capacity) ? 1 : 0;
+}
+
+Intvector *vector_new(size_t incap) 
 {
     Intvector *vec = NULL;
-    if (!(vec = malloc(sizeof(Intvector))))
-        exit(NOT_ALLOCATED);
-    if (!(vec->p = malloc(sizeof(int) * cap)))
-        exit(NOT_ALLOCATED);
+    if (!(vec = malloc(sizeof(Intvector)))) {
+        return NULL;
+    }
+    if (!(vec->p = malloc(sizeof(int) * incap))) {
+        free(vec);
+        return NULL;
+    }    
+    memset(vec->p, 0, incap*sizeof(int));
     vec->size = 0;
-    vec->capacity = cap;
+    vec->capacity = incap;
     return vec;
 }
 
 Intvector *vect_copy(const Intvector *v) 
 {
     Intvector *cp = NULL;
-    if ((cp = vector_new(v->capacity)))
-        return cp;
-    else
+    if (!(cp = vector_new(v->capacity)))
         return NULL;
+    memcpy(cp->p, v->p, v->capacity);
+    cp->capacity = v->capacity;
+    return cp;
+
+
+}
+
+void clean_up(Intvector *v) 
+{
+    free(v->p);
+    free(v);
 }
 
 int get_item(const Intvector *vect, int index) 
@@ -31,7 +70,21 @@ void set_item(Intvector *vect, int index, int item)
     vect->p[index] = item; 
 }
 
-int push_back(Intvector *v, int item) 
+size_t get_size(const Intvector *v) 
+{
+    return v->size; 
+}
+
+size_t get_capacity(const Intvector *v) 
+{
+    return v->capacity;
+}
+
+
+
+
+
+/*int push_back(Intvector *v, int item) 
 {
     if (v->size == v->capacity) {
         v->p = realloc(v->p, sizeof(int) * (v->capacity) * STEP);
@@ -53,21 +106,6 @@ void pop_back(Intvector *v)
     if(v->p[v->capacity-1] != 0)
         v->p[v->capacity-1] = 0;
 
-}
-
-void clean_up(Intvector *v) 
-{
-    free(v);
-}
-
-int get_size(const Intvector *v) 
-{
-    return v->size; 
-}
-
-int get_capacity(const Intvector *v) 
-{
-    return v->capacity;
 }
 
 int shrink_to_fit(Intvector *v)
@@ -110,4 +148,4 @@ int vector_reserve(Intvector *v, int newcap) {
     else {
         return -1;
     }
-}
+}*/

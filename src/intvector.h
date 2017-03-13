@@ -3,7 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define NOT_ALLOCATED 3
+#include <string.h>
+//#define NOT_ALLOCATED 3
 #define STEP 2
 
 typedef struct Intvector {
@@ -12,28 +13,37 @@ typedef struct Intvector {
     int capacity;
 } Intvector;
 
-Intvector *vector_new(int cap);
+int correctIndex(Intvector * v,int index);
+
+void printVector(int *arr, int size);
+
+void vectorInfo(const Intvector * v);
+
+void fillVector(Intvector *v, int size);
+
+Intvector *vector_new(size_t capacity);
 
 Intvector *vect_copy(const Intvector *v);
 
+void clean_up(Intvector *v);
+
 int get_item(const Intvector *vect, int index);
+
 
 void set_item(Intvector *vect, int index, int item);
 
-int push_back(Intvector *v, int item);
+size_t get_size(const Intvector *v);
+
+size_t get_capacity(const Intvector *v);
+
+/*int push_back(Intvector *v, int item);
 
 void pop_back(Intvector *v);
-
-void clean_up(Intvector *v);
-
-int get_size(const Intvector *v);
-
-int get_capacity(const Intvector *v);
 
 int shrink_to_fit(Intvector *v);
 
 int vector_resize(Intvector *v, int size);
 
-int vector_reserve(Intvector *v, int newcap);
+int vector_reserve(Intvector *v, int newcap);*/
 
 #endif
