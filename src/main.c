@@ -1,4 +1,7 @@
 #include "intvector.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 int main() {
 
@@ -6,7 +9,7 @@ int main() {
     puts("Enter initial capacity :");
     scanf("%d", &incap);
 
-    Intvector *vector = vector_new(incap);
+    Intvector *vector = vectorNew(incap);
 
     int size;
     puts("How many cells to fill ?");
@@ -19,7 +22,7 @@ int main() {
     vectorInfo(vector);
 
 
-    Intvector *vec_cp = vect_copy(vector);
+    Intvector *vec_cp = vectCopy(vector);
 
     puts("How many cells to fill (copy of the vector)?");
     scanf("%d", &size);
@@ -32,7 +35,7 @@ int main() {
     vectorInfo(vec_cp);
 
     puts("* void int_vector_free(IntVector *v)");
-    clean_up(vec_cp);
+    cleanUp(vec_cp);
 
     puts("Memory of the vec_cp is freed ");
 
@@ -44,7 +47,7 @@ int main() {
         scanf("%d", &index);
         correctIndex(vector, index);
     } while(!(correctIndex(vector, index)));
-    printf("vector->p[%d] = %d\n",index, get_item(vector, index));
+    printf("vector->p[%d] = %d\n",index, getItem(vector, index));
 
 
     puts("* void int_vector_set_item(IntVector *v, size_t index, int item)");
@@ -61,38 +64,38 @@ int main() {
     puts("What do you want to put ?");
     scanf("%d", &item);
 
-    set_item(vector, index, item);
+    setItem(vector, index, item);
     printf("vector->p[%d] = %d\n",index, vector->p[index]);
 
     printVector(vector->p, vector->capacity);
 
     puts("* size_t int_vector_get_size(const IntVector *v)");
-    printf("vector->size = %d\n", get_size(vector));
+    printf("vector->size = %d\n", getSize(vector));
 
     puts("* size_t int_vector_get_capacity(const IntVector *v)");
-    printf("vector->capacity = %d\n", get_capacity(vector));
+    printf("vector->capacity = %d\n", getCapacity(vector));
 
     puts("* int int_vector_push_back(IntVector *v, int item)");
     puts("* int int_vector_reserve(IntVector *v, size_t new_capacity)");
     puts("Enter the item :");
     scanf("%d", &item);
-    push_back(vector, item);
+    pushBack(vector, item);
     printVector(vector->p, vector->capacity);
 
     puts("* int int_vector_pop_back(IntVector *v)");
-    pop_back(vector);
+    popBack(vector);
     printVector(vector->p, vector->capacity);
 
 
     puts("* int int_vector_shrink_to_fit(IntVector *v)");
-    shrink_to_fit(vector);
+    shrinkToFit(vector);
     printVector(vector->p, vector->capacity);
 
     puts("* int int_vector_resize(IntVector *v, int size)");
     int nsize;
     puts("Enter a new size :");
     scanf("%d", &nsize);
-    vector_resize(vector, nsize);
+    vectorResize(vector, nsize);
 
     printVector(vector->p, vector->capacity);
 
@@ -103,7 +106,7 @@ int main() {
     vector_reserve(vector, newcap);
     printVector(vector->p, vector->capacity);*/
 
-    clean_up(vector);
+    cleanUp(vector);
 
     return 0;
 }

@@ -1,5 +1,7 @@
 #include "intvector.h"
-
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 void printVector(int *arr, int size)
 {
@@ -10,9 +12,9 @@ void printVector(int *arr, int size)
     printf("\n");
 }
 
-void vectorInfo(const Intvector * v)
+0void vectorInfo(const Intvector * v)
 {
-    printf("Size : %d \nCapacity : %d \n",v->size, v->capacity);
+    printf("Size : %d \nCapacity : %d \n", v->size, v->capacity);
 }
 
 void fillVector(Intvector * v, int size)
@@ -26,7 +28,7 @@ int correctIndex(Intvector * v,int index)
     return (index >= 0 && index < v->capacity) ? 1 : 0;
 }
 
-Intvector *vector_new(size_t incap)
+Intvector *vectorNew(size_t incap)
 {
     Intvector *vec = NULL;
     if (!(vec = malloc(sizeof(Intvector)))) {
@@ -36,16 +38,15 @@ Intvector *vector_new(size_t incap)
         free(vec);
         return NULL;
     }
-    memset(vec->p, 0, incap*sizeof(int));
     vec->size = 0;
     vec->capacity = incap;
     return vec;
 }
 
-Intvector *vect_copy(const Intvector *v) 
+Intvector *vectCopy(const Intvector *v)
 {
     Intvector *cp = NULL;
-    if (!(cp = vector_new(v->capacity)))
+    if (!(cp = vectorNew(v->capacity)))
         return NULL;
     memcpy(cp->p, v->p, v->capacity);
     cp->capacity = v->capacity;
@@ -54,37 +55,37 @@ Intvector *vect_copy(const Intvector *v)
 
 }
 
-void clean_up(Intvector *v) 
+void cleanUp(Intvector *v)
 {
     free(v->p);
     free(v);
 }
 
-int get_item(const Intvector *vect, int index) 
+int getItem(const Intvector *vect, int index)
 {
     return vect->p[index];
 }
 
-void set_item(Intvector *vect, int index, int item) 
+void setItem(Intvector *vect, int index, int item)
 {
-    vect->p[index] = item; 
+    vect->p[index] = item;
 }
 
-size_t get_size(const Intvector *v) 
+size_t getSize(const Intvector *v)
 {
-    return v->size; 
+    return v->size;
 }
 
-size_t get_capacity(const Intvector *v) 
+size_t getCapacity(const Intvector *v)
 {
     return v->capacity;
 }
 
 
-int push_back(Intvector *v, int item) 
+int pushBack(Intvector *v, int item)
 {
     if (v->size == v->capacity) {
-        vector_reserve(v, v->capacity*STEP);
+        vectorReserve(v, v->capacity*STEP);
         v->p[v->size] = item;
         v->size++;
         return 0;
@@ -97,13 +98,13 @@ int push_back(Intvector *v, int item)
 
 }
 
-void pop_back(Intvector *v) 
+void popBack(Intvector *v)
 {
     if(v->p[v->size] != 0)
         v->p[v->size] = 0;
 }
 
-int shrink_to_fit(Intvector *v)
+int shrinkToFit(Intvector *v)
 {
     if (v->size < v->capacity) {
         v->p = realloc(v->p, v->size * sizeof(int));
@@ -115,9 +116,9 @@ int shrink_to_fit(Intvector *v)
     }
 }
 
-int vector_resize(Intvector *v, size_t nsize)
+int vectorResize(Intvector *v, size_t nsize)
 {
-    if (nsize != v->size) {
+    if (nsize != v->size && nsize != 0) {
         if(nsize > v->size) {
             v->p = realloc(v->p, sizeof(int) * nsize);
             memset(v->p + v->capacity, 0, (nsize - v->capacity)*sizeof(int));
@@ -125,7 +126,7 @@ int vector_resize(Intvector *v, size_t nsize)
             return 0;
         }
         else {
-            shrink_to_fit(v);
+            shrinkToFit(v);
             return 0;
         }
     }
@@ -134,7 +135,7 @@ int vector_resize(Intvector *v, size_t nsize)
     }
 }
 
-int vector_reserve(Intvector *v, size_t newcap) {
+int vectorReserve(Intvector *v, size_t newcap) {
     if(newcap > v->capacity) {
         if(!(v->p = realloc(v->p, sizeof(int)* newcap)))
             return -1;
